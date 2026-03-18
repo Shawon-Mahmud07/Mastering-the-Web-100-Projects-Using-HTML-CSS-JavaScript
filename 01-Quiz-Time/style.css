@@ -84,11 +84,13 @@
       font-size: 0.97rem;
       text-align: left;
       cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
     }
  
     #options button:hover:not(:disabled) {
       border-color: var(--gold);
       color: var(--gold);
+      transform: translateX(5px);
     }
  
     #feedback {
