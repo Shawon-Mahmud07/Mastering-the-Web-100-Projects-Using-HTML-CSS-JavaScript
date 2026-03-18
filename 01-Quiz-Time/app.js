@@ -89,10 +89,38 @@ function loadQuestion() {
   document.getElementById('options').innerHTML = '';
 
   // Create a button for each option
-  q.options.forEach(function(option, index) {
+  q.options.forEach((option, index) => {
     const btn = document.createElement('button');
     btn.textContent = option;
     btn.onclick = function() { checkAnswer(index); };
     document.getElementById('options').appendChild(btn);
   });
+}
+
+// Check if selected answer is correct
+function checkAnswer(index) {
+  const q = questions[current];
+
+  // Disable all option buttons
+  const buttons = document.getElementById('options').querySelectorAll('button');
+  buttons.forEach((btn) => {
+    btn.disabled = true;
+  });
+
+  // Check if answer is correct
+  if (index === q.answer) {
+    score = score + 1;
+    buttons[index].style.borderColor = '#3ecf8e';
+    buttons[index].style.color = '#3ecf8e';
+    document.getElementById('feedback').textContent = '✅ সঠিক উত্তর!';
+  } else {
+    buttons[index].style.borderColor = '#f06f6f';
+    buttons[index].style.color = '#f06f6f';
+    buttons[q.answer].style.borderColor = '#3ecf8e';
+    buttons[q.answer].style.color = '#3ecf8e';
+    document.getElementById('feedback').textContent = '❌ ভুল হয়েছে!';
+  }
+
+  // Show next button
+  document.getElementById('next-btn').style.display = 'block';
 }
