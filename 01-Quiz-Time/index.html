@@ -14,29 +14,31 @@
   
     <!-- Screen 1: Start Page -->
     <div id="start-screen">
-      <h1>Quiz Time</h1>
+      <h1>Quiz Time 🇧🇩</h1>
       <p>বাংলাদেশ সম্পর্কে তোমার জ্ঞান যাচাই করো</p>
       <button onclick="startQuiz()">কুইজ শুরু করুন</button>
     </div>
   
     <!-- Screen 2: Question Page -->
     <div id="quiz-screen" style="display:none;">
-      <p id="q-counter">প্রশ্ন ১ / ৮</p>
-      <h2 id="question-text">এখানে প্রশ্ন আসবে</h2>
+      <p id="q-counter"></p>
+      <h2 id="question-text"></h2>
       <div id="options"></div>
       <p id="feedback"></p>
-      <button id="next-btn">পরবর্তী →</button>
+      <button id="next-btn" style="display:none;" onclick="nextQuestion()">পরবর্তী →</button>
     </div>
   
     <!-- Screen 3: Result Page -->
     <div id="result-screen" style="display:none;">
-      <p id="result-emoji">🏆</p>
-      <h2 id="result-title">অসাধারণ!</h2>
-      <p id="result-score">৮ / ৮</p>
-      <p id="result-sub">তুমি সব প্রশ্নের উত্তর দিয়েছ!</p>
+      <p id="result-emoji"></p>
+      <h2 id="result-title"></h2>
+      <p id="result-score"></p>
+      <p id="result-sub"></p>
       <button>আবার খেলুন</button>
       <button>হোম</button>
     </div>
+  
+  </div>
 
   <script src="app.js"></script>
 </body>

@@ -124,3 +124,36 @@ function checkAnswer(index) {
   // Show next button
   document.getElementById('next-btn').style.display = 'block';
 }
+
+// Move to next question or show result
+function nextQuestion() {
+  current = current + 1;
+
+  if (current < questions.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
+
+// Show final result screen
+function showResult() {
+  hide('quiz-screen');
+  show('result-screen');
+
+  document.getElementById('result-score').textContent = score + ' / ' + questions.length;
+
+  if (score === questions.length) {
+    document.getElementById('result-emoji').textContent = '🏆';
+    document.getElementById('result-title').textContent = 'অসাধারণ!';
+    document.getElementById('result-sub').textContent = 'তুমি সব প্রশ্নের সঠিক উত্তর দিয়েছো!';
+  } else if (score >= 5) {
+    document.getElementById('result-emoji').textContent = '🎉';
+    document.getElementById('result-title').textContent = 'দারুণ হয়েছে!';
+    document.getElementById('result-sub').textContent = 'আরও একটু চেষ্টা করলে পারফেক্ট হবে!';
+  } else {
+    document.getElementById('result-emoji').textContent = '📚';
+    document.getElementById('result-title').textContent = 'আরও পড়ো!';
+    document.getElementById('result-sub').textContent = 'হতাশ হয়ো না, আবার চেষ্টা করো!';
+  }
+}

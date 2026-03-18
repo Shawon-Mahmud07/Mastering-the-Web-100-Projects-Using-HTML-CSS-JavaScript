@@ -1,5 +1,4 @@
-/* CSS Variables (Colors & Font) */
-    :root {
+:root {
       --bg:    #0f1c2e;
       --card:  #1a2d45;
       --gold:  #c9a84c;
@@ -7,7 +6,6 @@
       --muted: #7a96b2;
     }
  
-    /* Body — Full page style */
     body {
       background-color: var(--bg);
       min-height: 100vh;
@@ -19,7 +17,6 @@
       padding: 24px;
     }
  
-    /* Card — Main container box */
     #card {
       background-color: var(--card);
       border-radius: 18px;
@@ -29,10 +26,8 @@
       box-shadow: 0 24px 60px rgba(0,0,0,0.45);
     }
  
-    /* Start Screen — Center layout */
-    #start-screen {
-      text-align: center;
-    }
+    /* Start Screen */
+    #start-screen { text-align: center; }
  
     #start-screen h1 {
       font-size: 2.4rem;
@@ -58,43 +53,85 @@
       cursor: pointer;
     }
  
-    #start-screen button:hover {
-      opacity: 0.85;
+    #start-screen button:hover { opacity: 0.85; }
+ 
+    /* Quiz Screen */
+    #q-counter {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 16px;
     }
-
-    /* =============================
-   Quiz Screen — Question layout
-   ============================= */
-#q-counter {
-  color: var(--muted);
-  font-size: 0.85rem;
-  margin-bottom: 16px;
-}
-
-#question-text {
-  color: var(--text);
-  font-size: 1.2rem;
-  margin-bottom: 24px;
-}
-
-#options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-#options button {
-  background-color: #0f1c2e;
-  color: var(--text);
-  border: 1.5px solid #243c57;
-  border-radius: 10px;
-  padding: 14px 18px;
-  font-size: 0.97rem;
-  text-align: left;
-  cursor: pointer;
-}
-
-#options button:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
+ 
+    #question-text {
+      color: var(--text);
+      font-size: 1.2rem;
+      margin-bottom: 24px;
+    }
+ 
+    #options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+ 
+    #options button {
+      background-color: #0f1c2e;
+      color: var(--text);
+      border: 1.5px solid #243c57;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 0.97rem;
+      text-align: left;
+      cursor: pointer;
+    }
+ 
+    #options button:hover:not(:disabled) {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+ 
+    #feedback {
+      margin-top: 16px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      min-height: 24px;
+    }
+ 
+    #next-btn {
+      margin-top: 20px;
+      background-color: var(--gold);
+      color: #0f1c2e;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 36px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+ 
+    #next-btn:hover { opacity: 0.85; }
+ 
+    /* Result Screen */
+    #result-screen { text-align: center; }
+ 
+    #result-emoji { font-size: 3.5rem; margin-bottom: 12px; }
+ 
+    #result-title {
+      color: var(--gold);
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+ 
+    #result-score {
+      color: var(--text);
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+ 
+    #result-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 32px;
+    }
