@@ -57,24 +57,24 @@ let current = 0;
 let score = 0;
 
 // Hide a screen
-function hide(id) {
+const hide = (id) => {
   document.getElementById(id).style.display = 'none';
 }
 
 // Show a screen
-function show(id) {
+const show = (id) => {
   document.getElementById(id).style.display = 'block';
 }
 
 // Start the quiz
-function startQuiz() {
+const startQuiz = () => {
   hide('start-screen');
   show('quiz-screen');
   loadQuestion();
 }
 
 // Load and display current question
-function loadQuestion() {
+const loadQuestion = () => {
 
   // Get the current question from array
   const q = questions[current];
@@ -87,6 +87,7 @@ function loadQuestion() {
 
   // Clear old options first
   document.getElementById('options').innerHTML = '';
+  document.getElementById("feedback").textContent = '';
 
   // Create a button for each option
   q.options.forEach((option, index) => {
@@ -98,7 +99,7 @@ function loadQuestion() {
 }
 
 // Check if selected answer is correct
-function checkAnswer(index) {
+const checkAnswer = (index) => {
   const q = questions[current];
 
   // Disable all option buttons
@@ -126,7 +127,7 @@ function checkAnswer(index) {
 }
 
 // Move to next question or show result
-function nextQuestion() {
+const nextQuestion = () => {
   current = current + 1;
 
   if (current < questions.length) {
@@ -137,7 +138,7 @@ function nextQuestion() {
 }
 
 // Show final result screen
-function showResult() {
+const showResult = () => {
   hide('quiz-screen');
   show('result-screen');
 
@@ -157,3 +158,20 @@ function showResult() {
     document.getElementById('result-sub').textContent = 'হতাশ হয়ো না, আবার চেষ্টা করো!';
   }
 }
+
+// Restart the quiz from beginning
+const restartQuiz = () => {
+  current = 0;
+  score = 0;
+  hide('result-screen');
+  show('quiz-screen');
+  loadQuestion();
+};
+
+// Go back to home screen
+const goHome = () => {
+  current = 0;
+  score = 0;
+  hide('result-screen');
+  show('start-screen');
+};
