@@ -175,3 +175,6 @@ const goHome = () => {
   hide('result-screen');
   show('start-screen');
 };
+
+// Update score display
+document.getElementById('score-display').textContent = 'স্কোর: ' + score;

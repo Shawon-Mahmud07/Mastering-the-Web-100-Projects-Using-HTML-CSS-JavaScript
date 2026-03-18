@@ -154,3 +154,22 @@
 #result-screen button:hover {
   opacity: 0.85;
 }
+
+/* =============================
+   Quiz Header — Counter & Score
+   ============================= */
+#quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#score-display {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold);
+  background-color: rgba(201, 168, 76, 0.12);
+  padding: 4px 12px;
+  border-radius: 99px;
+}

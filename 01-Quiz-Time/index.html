@@ -19,14 +19,26 @@
       <button onclick="startQuiz()">কুইজ শুরু করুন</button>
     </div>
   
-    <!-- Screen 2: Question Page -->
-    <div id="quiz-screen" style="display:none;">
+  <!-- Screen 2: Question Page -->
+  <div id="quiz-screen" style="display:none;">
+  
+    <!-- Question counter and score -->
+    <div id="quiz-header">
       <p id="q-counter"></p>
-      <h2 id="question-text"></h2>
-      <div id="options"></div>
-      <p id="feedback"></p>
-      <button id="next-btn" style="display:none;" onclick="nextQuestion()">পরবর্তী →</button>
+      <p id="score-display">স্কোর: ০</p>
     </div>
+  
+    <!-- Progress bar -->
+    <div id="progress-bar-wrap">
+      <div id="progress-bar"></div>
+    </div>
+  
+    <h2 id="question-text"></h2>
+    <div id="options"></div>
+    <p id="feedback"></p>
+    <button id="next-btn" style="display:none;" onclick="nextQuestion()">পরবর্তী →</button>
+  
+  </div>
   
     <!-- Screen 3: Result Page -->
     <div id="result-screen" style="display:none;">
@@ -37,6 +49,8 @@
       <button onclick="restartQuiz()">আবার খেলুন</button>
       <button onclick="goHome()">হোম</button>
     </div>
+
+    
   
   </div>
 
