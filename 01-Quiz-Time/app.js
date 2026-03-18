@@ -75,35 +75,44 @@ const startQuiz = () => {
 
 // Load and display current question
 const loadQuestion = () => {
-
   // Get the current question from array
   const q = questions[current];
 
   // Show question number
-  document.getElementById('q-counter').textContent = 'প্রশ্ন ' + (current + 1) + ' / ' + questions.length;
+  document.getElementById("q-counter").textContent =
+    "প্রশ্ন " + (current + 1) + " / " + questions.length;
 
   // Show question text
-  document.getElementById('question-text').textContent = q.q;
+  document.getElementById("question-text").textContent = q.q;
 
   // Clear old options first
-  document.getElementById('options').innerHTML = '';
-  document.getElementById("feedback").textContent = '';
+  document.getElementById("options").innerHTML = "";
+  document.getElementById("feedback").textContent = "";
+  document.getElementById("next-btn").style.display = "none";
+
+  // Update progress bar
+  const progress = (current / questions.length) * 100;
+  document.getElementById("progress-bar").style.width = progress + "%";
+  // Update score display
+  document.getElementById("score-display").textContent = "স্কোর: " + score;
 
   // Create a button for each option
   q.options.forEach((option, index) => {
-    const btn = document.createElement('button');
+    const btn = document.createElement("button");
     btn.textContent = option;
-    btn.onclick = function() { checkAnswer(index); };
-    document.getElementById('options').appendChild(btn);
+    btn.onclick = function () {
+      checkAnswer(index);
+    };
+    document.getElementById("options").appendChild(btn);
   });
-}
+};;
 
 // Check if selected answer is correct
 const checkAnswer = (index) => {
   const q = questions[current];
 
   // Disable all option buttons
-  const buttons = document.getElementById('options').querySelectorAll('button');
+  const buttons = document.getElementById("options").querySelectorAll("button");
   buttons.forEach((btn) => {
     btn.disabled = true;
   });
@@ -111,20 +120,22 @@ const checkAnswer = (index) => {
   // Check if answer is correct
   if (index === q.answer) {
     score = score + 1;
-    buttons[index].style.borderColor = '#3ecf8e';
-    buttons[index].style.color = '#3ecf8e';
-    document.getElementById('feedback').textContent = '✅ সঠিক উত্তর!';
+    buttons[index].style.borderColor = "#3ecf8e";
+    buttons[index].style.color = "#3ecf8e";
+    document.getElementById("feedback").textContent = "✅ সঠিক উত্তর!";
   } else {
-    buttons[index].style.borderColor = '#f06f6f';
-    buttons[index].style.color = '#f06f6f';
-    buttons[q.answer].style.borderColor = '#3ecf8e';
-    buttons[q.answer].style.color = '#3ecf8e';
-    document.getElementById('feedback').textContent = '❌ ভুল হয়েছে!';
+    buttons[index].style.borderColor = "#f06f6f";
+    buttons[index].style.color = "#f06f6f";
+    buttons[q.answer].style.borderColor = "#3ecf8e";
+    buttons[q.answer].style.color = "#3ecf8e";
+    document.getElementById("feedback").textContent = "❌ ভুল হয়েছে!";
   }
 
+  // Update score badge after answer
+  document.getElementById("score-display").textContent = "স্কোর: " + score;
   // Show next button
-  document.getElementById('next-btn').style.display = 'block';
-}
+  document.getElementById("next-btn").style.display = "block";
+};
 
 // Move to next question or show result
 const nextQuestion = () => {
@@ -165,7 +176,12 @@ const restartQuiz = () => {
   score = 0;
   hide('result-screen');
   show('quiz-screen');
+  // Reset score badge
+  document.getElementById("score-display").textContent = ' স্কোর: 0';
+// Hide next button
+  document.getElementById("next-btn").style.display = "none";
   loadQuestion();
+
 };
 
 // Go back to home screen
@@ -175,6 +191,3 @@ const goHome = () => {
   hide('result-screen');
   show('start-screen');
 };
-
-// Update score display
-document.getElementById('score-display').textContent = 'স্কোর: ' + score;

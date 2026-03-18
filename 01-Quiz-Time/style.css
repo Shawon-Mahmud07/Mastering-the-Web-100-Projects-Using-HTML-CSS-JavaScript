@@ -4,6 +4,7 @@
       --gold:  #c9a84c;
       --text:  #ffffff;
       --muted: #7a96b2;
+      --font:  'Hind Siliguri', sans-serif;
     }
  
     body {
@@ -12,7 +13,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: sans-serif;
+      font-family: var(--font);
       margin: 0;
       padding: 24px;
     }
@@ -172,4 +173,23 @@
   background-color: rgba(201, 168, 76, 0.12);
   padding: 4px 12px;
   border-radius: 99px;
+}
+
+/* =============================
+   Progress Bar
+   ============================= */
+#progress-bar-wrap {
+  background-color: #0f1c2e;
+  border-radius: 99px;
+  height: 6px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+#progress-bar {
+  background-color: var(--gold);
+  height: 100%;
+  border-radius: 99px;
+  width: 0%;
+  transition: width 0.3s ease;
 }
