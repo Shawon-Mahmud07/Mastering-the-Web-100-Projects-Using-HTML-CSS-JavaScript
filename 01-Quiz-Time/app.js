@@ -78,6 +78,12 @@ const loadQuestion = () => {
   // Get the current question from array
   const q = questions[current];
 
+  // Remove and re-add animate class for replay effect
+  const card = document.getElementById("card");
+  card.classList.remove("animate");
+  void card.offsetWidth; // Force browser to reset animation
+  card.classList.add("animate");
+
   // Show question number
   document.getElementById("q-counter").textContent =
     "প্রশ্ন " + (current + 1) + " / " + questions.length;
@@ -105,7 +111,7 @@ const loadQuestion = () => {
     };
     document.getElementById("options").appendChild(btn);
   });
-};;
+};;;
 
 // Check if selected answer is correct
 const checkAnswer = (index) => {
