@@ -1,5 +1,7 @@
-// All quiz questions stored in an array
-const questions = [
+// // All quiz questions stored in an array
+
+// Round 1 questions
+const round1 = [
   {
     q: "বাংলাদেশের রাজধানীর নাম কী?",
     options: ["চট্টগ্রাম", "সিলেট", "ঢাকা", "রাজশাহী"],
@@ -52,13 +54,70 @@ const questions = [
   },
 ];
 
+// Round 2 questions
+const round2 = [
+  {
+    q: "বাংলাদেশের জাতীয় খেলা কী?",
+    options: ["ক্রিকেট", "ফুটবল", "হা-ডু-ডু", "কাবাডি"],
+    answer: 2,
+  },
+  {
+    q: "বাংলাদেশের প্রথম রাষ্ট্রপতি কে ছিলেন?",
+    options: ["শেখ মুজিবুর রহমান", "জিয়াউর রহমান", "সৈয়দ নজরুল ইসলাম", "আবু সাঈদ চৌধুরী"],
+    answer: 0,
+  },
+  {
+    q: "বাংলাদেশের জাতীয় গাছের নাম কী?",
+    options: ["আম গাছ", "কাঁঠাল গাছ", "নারকেল গাছ", "বট গাছ"],
+    answer: 1,
+  },
+  {
+    q: "ঢাকা বিশ্ববিদ্যালয় কত সালে প্রতিষ্ঠিত হয়?",
+    options: ["১৯০৫", "১৯২১", "১৯৪৭", "১৯৭১"],
+    answer: 1,
+  },
+  {
+    q: "বাংলাদেশের সবচেয়ে বড় নদীর নাম কী?",
+    options: ["যমুনা", "মেঘনা", "পদ্মা", "ব্রহ্মপুত্র"],
+    answer: 2,
+  },
+  {
+    q: "বাংলাদেশের জাতীয় মাছের নাম কী?",
+    options: ["রুই", "কাতলা", "ইলিশ", "চিতল"],
+    answer: 2,
+  },
+  {
+    q: "মুক্তিযুদ্ধে বাংলাদেশ কত তারিখে বিজয় লাভ করে?",
+    options: ["২৬ মার্চ", "৭ মার্চ", "১৬ ডিসেম্বর", "১৭ এপ্রিল"],
+    answer: 2,
+  },
+  {
+    q: "বাংলাদেশের জাতীয় সংগীতের রচয়িতা কে?",
+    options: ["কাজী নজরুল ইসলাম", "রবীন্দ্রনাথ ঠাকুর", "জসীম উদ্দীন", "মাইকেল মধুসূদন দত্ত"],
+    answer: 1,
+  },
+];
+
+
+
+
 // Track current question and score
 let current = 0;
 let score = 0;
 
 // Timer variables
 let timer = null;
-let timeLeft = 15;
+let timeLeft = 30 ;
+
+// Start with round 1
+let questions = round1;
+let currentRound = 1;
+
+// Convert English numbers to Bangla
+const toBanglaNumber = (num) => {
+  const bangla = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  return String(num).split('').map(d => bangla[d] || d).join('');
+};
 
 // Hide a screen
 const hide = (id) => {
@@ -128,7 +187,7 @@ const checkAnswer = (index) => {
 
   // Stop timer when an option is selected
   clearInterval(timer);
-  
+
   // Disable all option buttons
   const buttons = document.getElementById("options").querySelectorAll("button");
   buttons.forEach((btn) => {
@@ -166,56 +225,78 @@ const nextQuestion = () => {
   }
 };
 
-// Show final result screen
+// Show result screen
 const showResult = () => {
   hide("quiz-screen");
   show("result-screen");
 
+  // Show score in Bangla numbers
   document.getElementById("result-score").textContent =
-    score + " / " + questions.length;
+    toBanglaNumber(score) + " / " + toBanglaNumber(questions.length);
 
-  if (score === questions.length) {
-    document.getElementById("result-emoji").textContent = "🏆";
-    document.getElementById("result-title").textContent = "অসাধারণ!";
+  if (currentRound === 1) {
+    document.getElementById("result-emoji").textContent = "🎯";
+    document.getElementById("result-title").textContent = "রাউন্ড ১ শেষ!";
     document.getElementById("result-sub").textContent =
-      "তুমি সব প্রশ্নের সঠিক উত্তর দিয়েছো!";
-  } else if (score >= 5) {
-    document.getElementById("result-emoji").textContent = "🎉";
-    document.getElementById("result-title").textContent = "দারুণ হয়েছে!";
-    document.getElementById("result-sub").textContent =
-      "আরও একটু চেষ্টা করলে পারফেক্ট হবে!";
+      "রাউন্ড ২ তে আরও কঠিন প্রশ্ন আসবে!";
+    document.getElementById("next-round-btn").style.display = "inline-block";
   } else {
-    document.getElementById("result-emoji").textContent = "📚";
-    document.getElementById("result-title").textContent = "আরও পড়ো!";
-    document.getElementById("result-sub").textContent =
-      "হতাশ হয়ো না, আবার চেষ্টা করো!";
+    document.getElementById("next-round-btn").style.display = "none";
+    if (score === questions.length) {
+      document.getElementById("result-emoji").textContent = "🏆";
+      document.getElementById("result-title").textContent = "অসাধারণ!";
+      document.getElementById("result-sub").textContent =
+        "তুমি সব প্রশ্নের সঠিক উত্তর দিয়েছো!";
+    } else if (score >= 5) {
+      document.getElementById("result-emoji").textContent = "🎉";
+      document.getElementById("result-title").textContent = "দারুণ হয়েছে!";
+      document.getElementById("result-sub").textContent =
+        "আরও একটু চেষ্টা করলে পারফেক্ট হবে!";
+    } else {
+      document.getElementById("result-emoji").textContent = "📚";
+      document.getElementById("result-title").textContent = "আরও পড়ো!";
+      document.getElementById("result-sub").textContent =
+        "হতাশ হয়ো না, আবার চেষ্টা করো!";
+    }
   }
-};
+};;
 
 // Restart the quiz from beginning
 const restartQuiz = () => {
   current = 0;
   score = 0;
+
+  // Move to next round
+  if (currentRound === 1) {
+    currentRound = 2;
+    questions = round2;
+  } else {
+    currentRound = 1;
+    questions = round1;
+  }
   hide("result-screen");
   show("quiz-screen");
+
   // Reset score badge
-  document.getElementById("score-display").textContent = " স্কোর: 0";
+  document.getElementById("score-display").textContent =
+    "স্কোর: " + toBanglaNumber(score);
   // Hide next button
   document.getElementById("next-btn").style.display = "none";
   loadQuestion();
-};
+};;
 
 // Go back to home screen
 const goHome = () => {
   current = 0;
   score = 0;
+
   hide("result-screen");
   show("start-screen");
-};
+};;
 
 // Start countdown timer
 const startTimer = () => {
-  timeLeft = 15;
+  timeLeft = 30 ;
   document.getElementById("timer").textContent = "⏱ " + timeLeft;
   document.getElementById("timer").classList.remove("danger");
 
@@ -224,7 +305,7 @@ const startTimer = () => {
     document.getElementById("timer").textContent = "⏱ " + timeLeft;
 
     // Turn red when 5 seconds left
-    if (timeLeft <= 5) {
+    if (timeLeft <= 10) {
       document.getElementById("timer").classList.add("danger");
     }
 
