@@ -56,27 +56,34 @@ const questions = [
 let current = 0;
 let score = 0;
 
+// Timer variables
+let timer = null;
+let timeLeft = 15;
+
 // Hide a screen
 const hide = (id) => {
-  document.getElementById(id).style.display = 'none';
-}
+  document.getElementById(id).style.display = "none";
+};
 
 // Show a screen
 const show = (id) => {
-  document.getElementById(id).style.display = 'block';
-}
+  document.getElementById(id).style.display = "block";
+};
 
 // Start the quiz
 const startQuiz = () => {
-  hide('start-screen');
-  show('quiz-screen');
+  hide("start-screen");
+  show("quiz-screen");
   loadQuestion();
-}
+};
 
 // Load and display current question
 const loadQuestion = () => {
   // Get the current question from array
   const q = questions[current];
+
+  // Start timer for each question
+  clearInterval(timer);
 
   // Remove and re-add animate class for replay effect
   const card = document.getElementById("card");
@@ -111,12 +118,17 @@ const loadQuestion = () => {
     };
     document.getElementById("options").appendChild(btn);
   });
-};;;
+  // Start timer after loading question
+  startTimer();
+};
 
 // Check if selected answer is correct
 const checkAnswer = (index) => {
   const q = questions[current];
 
+  // Stop timer when an option is selected
+  clearInterval(timer);
+  
   // Disable all option buttons
   const buttons = document.getElementById("options").querySelectorAll("button");
   buttons.forEach((btn) => {
@@ -152,48 +164,74 @@ const nextQuestion = () => {
   } else {
     showResult();
   }
-}
+};
 
 // Show final result screen
 const showResult = () => {
-  hide('quiz-screen');
-  show('result-screen');
+  hide("quiz-screen");
+  show("result-screen");
 
-  document.getElementById('result-score').textContent = score + ' / ' + questions.length;
+  document.getElementById("result-score").textContent =
+    score + " / " + questions.length;
 
   if (score === questions.length) {
-    document.getElementById('result-emoji').textContent = '🏆';
-    document.getElementById('result-title').textContent = 'অসাধারণ!';
-    document.getElementById('result-sub').textContent = 'তুমি সব প্রশ্নের সঠিক উত্তর দিয়েছো!';
+    document.getElementById("result-emoji").textContent = "🏆";
+    document.getElementById("result-title").textContent = "অসাধারণ!";
+    document.getElementById("result-sub").textContent =
+      "তুমি সব প্রশ্নের সঠিক উত্তর দিয়েছো!";
   } else if (score >= 5) {
-    document.getElementById('result-emoji').textContent = '🎉';
-    document.getElementById('result-title').textContent = 'দারুণ হয়েছে!';
-    document.getElementById('result-sub').textContent = 'আরও একটু চেষ্টা করলে পারফেক্ট হবে!';
+    document.getElementById("result-emoji").textContent = "🎉";
+    document.getElementById("result-title").textContent = "দারুণ হয়েছে!";
+    document.getElementById("result-sub").textContent =
+      "আরও একটু চেষ্টা করলে পারফেক্ট হবে!";
   } else {
-    document.getElementById('result-emoji').textContent = '📚';
-    document.getElementById('result-title').textContent = 'আরও পড়ো!';
-    document.getElementById('result-sub').textContent = 'হতাশ হয়ো না, আবার চেষ্টা করো!';
+    document.getElementById("result-emoji").textContent = "📚";
+    document.getElementById("result-title").textContent = "আরও পড়ো!";
+    document.getElementById("result-sub").textContent =
+      "হতাশ হয়ো না, আবার চেষ্টা করো!";
   }
-}
+};
 
 // Restart the quiz from beginning
 const restartQuiz = () => {
   current = 0;
   score = 0;
-  hide('result-screen');
-  show('quiz-screen');
+  hide("result-screen");
+  show("quiz-screen");
   // Reset score badge
-  document.getElementById("score-display").textContent = ' স্কোর: 0';
-// Hide next button
+  document.getElementById("score-display").textContent = " স্কোর: 0";
+  // Hide next button
   document.getElementById("next-btn").style.display = "none";
   loadQuestion();
-
 };
 
 // Go back to home screen
 const goHome = () => {
   current = 0;
   score = 0;
-  hide('result-screen');
-  show('start-screen');
+  hide("result-screen");
+  show("start-screen");
+};
+
+// Start countdown timer
+const startTimer = () => {
+  timeLeft = 15;
+  document.getElementById("timer").textContent = "⏱ " + timeLeft;
+  document.getElementById("timer").classList.remove("danger");
+
+  timer = setInterval(() => {
+    timeLeft = timeLeft - 1;
+    document.getElementById("timer").textContent = "⏱ " + timeLeft;
+
+    // Turn red when 5 seconds left
+    if (timeLeft <= 5) {
+      document.getElementById("timer").classList.add("danger");
+    }
+
+    // Time is up
+    if (timeLeft === 0) {
+      clearInterval(timer);
+      nextQuestion();
+    }
+  }, 1000);
 };

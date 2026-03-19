@@ -213,3 +213,21 @@
 .animate {
   animation: fadeIn 0.35s ease;
 }
+
+/* =============================
+   Timer
+   ============================= */
+#timer {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 4px 12px;
+  border-radius: 99px;
+  transition: color 0.3s ease;
+}
+
+#timer.danger {
+  color: #f06f6f;
+  background-color: rgba(240, 111, 111, 0.12);
+}
