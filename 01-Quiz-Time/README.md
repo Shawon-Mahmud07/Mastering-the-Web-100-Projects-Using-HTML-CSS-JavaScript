@@ -20,6 +20,7 @@ A fun and interactive quiz app about Bangladesh, built with pure HTML, CSS, and 
 - 📋 Answer review screen after each round
 - 🔄 Smooth fade-in animation on each question
 - ✅ Bangla numbers and Bangla font (Hind Siliguri)
+- 🌌 Animated background with twinkling stars, floating particles, and waves
 
 ---
 
@@ -29,7 +30,7 @@ A fun and interactive quiz app about Bangladesh, built with pure HTML, CSS, and 
 01-Quiz-Time/
 ├── index.html      # App structure and screens
 ├── style.css       # Styling and animations
-├── app.js          # Quiz logic and timer
+├── app.js          # Quiz logic, timer, and background animation
 └── README.md       # Project documentation
 ```
 
@@ -38,32 +39,33 @@ A fun and interactive quiz app about Bangladesh, built with pure HTML, CSS, and 
 ## 🖥️ Screens
 
 | Screen | Description |
-|--------|-------------|
+| -------- | ------------- |
 | Start Screen | Welcome page with start button |
 | Quiz Screen | Question, options, timer, score badge |
 | Result Screen | Score summary with next round option |
-| Review Screen | All correct answers listed |
+
+---
+
+## 🎨 Background Animation
+
+The app features a live canvas-based background animation built with vanilla JavaScript:
+
+| Effect | Description |
+| -------- | ------------- |
+| ⭐ Twinkling Stars | 80 stars that fade in and out using `Math.sin` |
+| 🟡 Floating Particles | 18 gold & blue particles drifting across the screen |
+| 〰️ Wave Layers | 3 sine-curve waves flowing across the bottom |
+
+All animation runs at ~60fps using `requestAnimationFrame`.
 
 ---
 
 ## 🛠️ Built With
 
-- HTML5
+- HTML5 (Canvas API)
 - CSS3 (Flexbox, CSS Variables, Animations)
-- Vanilla JavaScript (Arrow Functions, DOM Manipulation)
+- Vanilla JavaScript (Arrow Functions, DOM Manipulation, Math.sin, requestAnimationFrame)
 - Google Fonts — [Hind Siliguri](https://fonts.google.com/specimen/Hind+Siliguri)
-
----
-
-## 📖 What I Learned
-
-- HTML structure and semantic elements
-- CSS variables and reusable styles
-- JavaScript DOM manipulation
-- `setInterval` and `clearInterval` for timers
-- Arrow functions and array methods
-- Git version control and GitHub
-- `git rebase -i` for editing commit history
 
 ---
 
