@@ -316,3 +316,90 @@ const startTimer = () => {
     }
   }, 1000);
 };
+
+
+// Background Animation
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const stars = Array.from({length: 80}, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 1.5 + 0.3,
+  alpha: Math.random(),
+  speed: Math.random() * 0.008 + 0.003,
+  phase: Math.random() * Math.PI * 2
+}));
+
+const particles = Array.from({length: 18}, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  vx: (Math.random() - 0.5) * 0.4,
+  vy: (Math.random() - 0.5) * 0.4,
+  r: Math.random() * 2.5 + 1,
+  alpha: Math.random() * 0.4 + 0.1,
+  gold: Math.random() > 0.5
+}));
+
+const waves = Array.from({length: 3}, (_, i) => ({
+  offset: i * (Math.PI * 2 / 3),
+  speed: 0.003 + i * 0.001,
+  amp: 60 + i * 20,
+  yRatio: 0.6 + i * 0.1
+}));
+
+let t = 0;
+
+function drawBackground() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  waves.forEach(w => {
+    const waveY = canvas.height * w.yRatio;
+    ctx.beginPath();
+    ctx.moveTo(0, waveY);
+    for (let x = 0; x <= canvas.width; x += 4) {
+      const y = waveY + Math.sin(x * 0.008 + t * w.speed * 60 + w.offset) * w.amp;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(canvas.width, canvas.height);
+    ctx.lineTo(0, canvas.height);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(201,168,76,0.025)';
+    ctx.fill();
+  });
+
+  stars.forEach(s => {
+    s.alpha = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * s.speed * 60 + s.phase));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+    ctx.fill();
+  });
+
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0) p.x = canvas.width;
+    if (p.x > canvas.width) p.x = 0;
+    if (p.y < 0) p.y = canvas.height;
+    if (p.y > canvas.height) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.gold
+      ? `rgba(201,168,76,${p.alpha})`
+      : `rgba(122,150,178,${p.alpha})`;
+    ctx.fill();
+  });
+
+  t += 0.016;
+  requestAnimationFrame(drawBackground);
+}
+
+drawBackground();
