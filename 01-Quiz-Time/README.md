@@ -25,13 +25,13 @@ A fun and interactive quiz app about Bangladesh, built with pure HTML, CSS, and 
 ---
 
 ## 🗂️ Project Structure
-
 ```plaintext
 01-Quiz-Time/
-├── index.html      # App structure and screens
-├── style.css       # Styling and animations
-├── app.js          # Quiz logic, timer, and background animation
-└── README.md       # Project documentation
+├── index.html       # App structure and screens
+├── style.css        # Styling and animations
+├── questions.js     # Quiz questions data (Round 1 & 2)
+├── app.js           # Quiz logic and timer
+└── README.md        # Project documentation
 ```
 
 ---
